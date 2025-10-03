@@ -105,7 +105,7 @@ docker run --rm -ti \
 ```
 # Map: Відповідність host → порт
     map $host $target_port {
-        default          10000; # за замовчуванням порт
+        default          8000; # за замовчуванням порт
         chal1.ctf-in-every-house.site  10001;
         chal2.ctf-in-every-house.site  10002;
         chal3.ctf-in-every-house.site  10003;
