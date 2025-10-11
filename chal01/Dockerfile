@@ -10,4 +10,4 @@ RUN set -x \
 COPY src/ /var/www/html/
 
 USER 101
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
