@@ -1,6 +1,6 @@
 FROM php:7.3-apache
 
-ARG flag="s3curity<ByP@ss"
+ARG flag="s3curityByP@ss"
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN sed -i 's/^;\{0,1\}memory_limit = .*/memory_limit = 32M/' "$PHP_INI_DIR/php.ini"
 RUN apt update && apt install iputils-ping -y
