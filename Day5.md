@@ -5,6 +5,31 @@ fork bomb
 
 `docker run --name test16 -dit --restart always --cpus 0.2 --memory 256m --pids-limit 100 -p 10101:80  rce1`
 
+ping.php
+```
+<?php
+if (isset($_GET['ip'])) {
+    print_r(shell_exec('ping -c 1 '.$_GET['ip']));
+} else {
+    echo "Something went wrong";
+}
+?>
+```
+
+ping_v2.php
+```
+<?php
+if (isset($_GET['ip'])) {
+    if (preg_match('/[\|&\$ ]/', $_GET['ip'])) {
+        die("Error: Invalid host or IP address.");
+    }
+    print_r(shell_exec('ping -c 1 '.$_GET['ip']));
+} else {
+    echo "Something went wrong";
+}
+?>
+```
+
 ```
 FROM php:7.2-apache
 
