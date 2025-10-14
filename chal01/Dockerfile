@@ -10,4 +10,4 @@ HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
 
 COPY src/ /var/www/html/
 RUN chmod a-w -R /var/www/
-RUN sed -i 's\flag_placeholder\'$flag'\g' /var/www/html/.env
+RUN sed -i 's/flag_placeholder/'$flag'/' /var/www/html/.env
