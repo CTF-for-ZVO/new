@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Ping Service - Real Fetch</title>
+    <style>
+        /* Використання консольного (моноширинного) шрифту */
+        body {
+            font-family: 'Consolas', 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            background-color: #282c34; /* Темний фон (як у терміналі) */
+            color: #abb2bf; /* Світлий текст */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .ping-container {
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            background-color: #3e4451; /* Трохи світліший контейнер */
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            color: #61afef; /* Блакитний акцент */
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #282c34;
+            border: 1px solid #5c6370;
+            color: #e6c07b; /* Жовтуватий для введення */
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1em;
+            box-sizing: border-box; /* Важливо для правильної ширини */
+        }
+
+        button {
+            background-color: #98c379; /* Зелений для кнопки */
+            color: #282c34;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1em;
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: #b4e195;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Область результатів, імітація виводу терміналу */
+        #results {
+            margin-top: 30px;
+            text-align: left;
+            padding: 15px;
+            background-color: #282c34;
+            border: 1px solid #5c6370;
+            min-height: 150px;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            border-radius: 4px;
+        }
+
+        /* Стилі для виводу */
+        .ping-success { color: #98c379; } /* Зелений */
+        .ping-error { color: #e06c75; } /* Червоний */
+        .ping-info { color: #61afef; } /* Блакитний */
+        .ping-host { color: #e6c07b; } /* Жовтий */
+
+        /* Анімація завантаження */
+        .loader {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            border: 2px solid #56b6c2;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ping-container">
+        <h1>🌐 Веб-сервіс PING</h1>
+
+        <input type="text" id="targetHost" placeholder="Введіть IP-адресу або домен (наприклад, google.com)" value="google.com">
+
+        <button onclick="startPingRequest()">ПІНГУВАТИ</button>
+
+        <div id="results">
+            Очікування введення...
+        </div>
+    </div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+        const targetHostInput = document.getElementById('targetHost');
+        const pingButton = document.querySelector('button');
+        const BACKEND_URL = '/ping.php'; // Шлях до вашого PHP-скрипта
+
+        /**
+         * Асинхронно відправляє запит на бекенд для пінгування
+         */
+        async function startPingRequest() {
+            const host = targetHostInput.value.trim();
+            if (!host) {
+                resultsDiv.innerHTML = '<span class="ping-error">Помилка:</span> Будь ласка, введіть хост.';
+                return;
+            }
+
+            // Блокування кнопки та відображення завантаження
+            pingButton.disabled = true;
+            pingButton.innerHTML = 'ЗАПИТ... <span class="loader"></span>';
+            resultsDiv.innerHTML = `<span class="ping-info">Pinging <span class="ping-host">${host}</span> via server...</span><br>`;
+            resultsDiv.innerHTML += '<span class="ping-info">Waiting for response...</span>';
+
+            try {
+                // Відправка запиту на бекенд: /ping.php?ip=google.com
+                const response = await fetch(`${BACKEND_URL}?ip=${encodeURIComponent(host)}`);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Отримання текстової відповіді
+                const data = await response.text();
+
+                // Відображення відповіді (припускаємо, що бекенд повертає чистий текст ping-виводу)
+                resultsDiv.innerHTML = formatPingOutput(data);
+
+            } catch (error) {
+                resultsDiv.innerHTML = `<span class="ping-error">ПОМИЛКА З'ЄДНАННЯ!</span><br>`;
+                resultsDiv.innerHTML += `Не вдалося отримати відповідь від ${BACKEND_URL}. <br>Перевірте, чи працює ваш бекенд.<br>`;
+                resultsDiv.innerHTML += `<span class="ping-info">Деталі: ${error.message}</span>`;
+            } finally {
+                // Відновлення кнопки
+                pingButton.disabled = false;
+                pingButton.textContent = 'ПІНГУВАТИ';
+            }
+        }
+
+        /**
+         * Функція для форматування виводу, додаючи кольори.
+         * Ця функція є опціональною і залежить від формату виводу вашого бекенда.
+         * Тут ми просто замінюємо ключові слова на кольорові теги.
+         */
+        function formatPingOutput(rawText) {
+            let formattedText = rawText.replace(/\n/g, '<br>');
+
+            // Заміна ключових слів на зелений (успіх/результат)
+            formattedText = formattedText.replace(/Reply from/g, '<span class="ping-success">Reply from</span>');
+            formattedText = formattedText.replace(/time=/g, '<span class="ping-success">time=</span>');
+            formattedText = formattedText.replace(/Minimum|Maximum|Average/g, '<span class="ping-success">$&</span>');
+
+            // Заміна ключових слів на червоний (помилка/втрата)
+            formattedText = formattedText.replace(/Request timed out|Destination host unreachable/g, '<span class="ping-error">$&</span>');
+            formattedText = formattedText.replace(/Lost = [1-9]\d*/g, '<span class="ping-error">$&</span>'); // Виділяє втрачені пакети
+
+            // Заміна ключових слів на блакитний (інфо)
+            formattedText = formattedText.replace(/Pinging|Ping statistics|Approximate round trip times/g, '<span class="ping-info">$&</span>');
+
+            // Якщо текст починається з помилки (наприклад, 404), відобразити її червоним
+            if (formattedText.startsWith('HTTP error') || formattedText.startsWith('Error')) {
+                 return `<span class="ping-error">${formattedText}</span>`;
+            }
+
+            return formattedText;
+        }
+
+    </script>
+
+</body>
+</html>
