@@ -1,8 +1,8 @@
-FROM php:8.3-apache
+FROM php:7.3-apache
 
 RUN rm -f /var/log/apache2/access.log /var/log/apache2/error.log
 RUN apt-get update && \
-    apt-get install -y logrotate cron &&
+    apt-get install -y logrotate cron
 COPY apache_logrotate.conf /etc/logrotate.d/apache2
 RUN echo "* * * * * /usr/sbin/logrotate /etc/logrotate.conf" > /etc/crontab
 
