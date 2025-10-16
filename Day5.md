@@ -73,3 +73,27 @@ if (isset($_GET['ip'])) {
 }
 ?>
 ```
+
+
+
+### LFI
+Dockerfile
+```
+FROM php:7.3-apache
+
+COPY src/ /var/www/html/
+RUN chmod a-w -R /var/www/
+```
+### Apples
+[https://github.com/CTF-for-ZVO/new/tree/main/Day5_apples](https://github.com/CTF-for-ZVO/new/tree/main/Day5_apples/src)
+
+### LFI to RCE
+Dockerfile
+```
+FROM php:7.3-apache
+
+RUN rm -f /var/log/apache2/access.log /var/log/apache2/error.log
+
+COPY src/ /var/www/html/
+RUN chmod a-w -R /var/www/
+```
