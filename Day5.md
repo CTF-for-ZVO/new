@@ -56,7 +56,6 @@ COPY src/ /var/www/html/
 RUN chmod a-w -R /var/www/
 RUN sed -i 's/flag_placeholder/'$flag'/' /var/www/html/.env
 ```
-```
 
 
 ### RCE security bypass
