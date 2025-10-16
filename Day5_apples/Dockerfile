@@ -1,4 +1,4 @@
-FROM php:7.3-apache
+FROM php:8.3-apache
 
 RUN rm -f /var/log/apache2/access.log /var/log/apache2/error.log
 RUN apt-get update && \
