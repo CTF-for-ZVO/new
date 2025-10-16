@@ -41,7 +41,7 @@ RUN chmod a-w -R /var/www/
 
 Dockerfile
 ```
-```
+
 FROM php:7.3-apache
 
 ARG flag="s3curityByP@ss"
