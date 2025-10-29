@@ -1,6 +1,8 @@
 ## Encoding
 https://cyberchef.io/#recipe=To_HTML_Entity(true,'Hex%20entities')URL_Encode(true)To_Binary('Space',8)&input=ZmxhZ3szbmMwZDFuR30
 
+https://www.dcode.fr/en
+
 ## Encrypting
 https://cyberchef.io/#recipe=ROT13(true,true,false,13)&input=ZmxhZ3szbmMwZDFuR30
 
