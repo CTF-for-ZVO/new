@@ -4,6 +4,7 @@ import time
 import base64
 
 # --- Параметри ---
+flag = "CTF{D0uble_Tunnel_F0und_By_BLUETEAM}"
 VICTIM_IP = "10.0.0.34"
 DNS_SERVER_IP = "8.8.8.8"
 C2_DOMAIN = "c2server.com"
@@ -19,7 +20,7 @@ c2_session = {
     "id": "uid=0(root) gid=0(root) groups=0(wheel)",
     "car /root/Flag.txt": "bash: command not found: car",
     "cat /root/Flag.txt": "cat: /root/Flag.txt: No such file or directory",
-    "base64 < /root/*.txt": "Q1RGe1R1bm5lbF9GMHVuZF9CeV9CTFVFVEVBTX0=",
+    "base64 < /root/*.txt": base64.b64encode(flag.encode()).decode(),
     "tail -n 5 /root/.bash_history": """
     id
     ls -la /root/
@@ -28,7 +29,7 @@ c2_session = {
     exit
     """,
 }
-#"cat /root/*.txt | base64": "CTF{Tunnel_F0und_By_BLUETEAM}",
+print("flag: ",base64.b64encode(flag.encode()).decode())
 # --- Функції Генерації ---
 
 def generate_packet(src_ip, dst_ip, src_port, dst_port, payload, timestamp):
