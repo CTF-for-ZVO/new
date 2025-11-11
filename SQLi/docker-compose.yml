@@ -1,0 +1,33 @@
+services:
+  db:
+    image: mariadb:10.6
+    container_name: ctf_lotto_db
+    environment:
+      MARIADB_ROOT_PASSWORD: gfyw641jfds0werh1
+      MARIADB_DATABASE: lotto_db
+      MARIADB_USER: lotto_user
+      MARIADB_PASSWORD: lotto_pAss_0Rd
+    volumes: 
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "127.0.0.1:3306:3306"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'   # Обмеження CPU
+          memory: 512M  # Обмеження RAM
+    restart: always
+
+  # Сервіс веб-сервера (PHP + Apache)
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: ctf_lotto_web
+    ports:
+      - "127.0.0.1:10009:80"
+    volumes:
+      - ./web/src:/var/www/html
+    depends_on:
+      - db
+    restart: always
