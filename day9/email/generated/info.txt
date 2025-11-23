@@ -1,0 +1,8 @@
+EMAIL FORENSICS CHALLENGE
+=========================
+
+You have intercepted a suspicious phishing email.
+Your task: analyze the email and find the hidden flag.
+
+File: suspicious.eml
+

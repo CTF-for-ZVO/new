@@ -1,0 +1,81 @@
+Content-Type: multipart/mixed; boundary="===============1267194250895861841=="
+MIME-Version: 1.0
+From: "Security Team" <security@suspicious-domain.com>
+To: admin@company.com
+Subject: URGENT: Security Alert - Immediate Action Required
+Date: Thu, 12 Dec 2024 14:30:00 +0000
+Message-ID: <abc123def456@suspicious-domain.com>
+Return-Path: bounces@attacker-mail-server.net
+X-Mailer: PhishMailer 2.0
+X-Originating-IP: [192.168.100.50]
+X-Secret-Token: ZmxhZ3szbTQxbF9oMzRkM3JzX3QzbGxfczNjcjN0c30=
+X-Priority: 1
+X-Campaign-ID: phish2024
+Received: from localhost (attacker-pc [10.0.0.50]) by mail.attacker-server.com with ESMTP id XYZ789; Wed, 12 Dec 2024 14:29:55 +0000
+Received: from mail.attacker-server.com (unknown [45.67.89.123]) by mx.company.com with ESMTP id ABC123; Wed, 12 Dec 2024 14:30:00 +0000
+Authentication-Results: mx.company.com; spf=fail smtp.mailfrom=attacker-mail-server.net; dkim=fail
+
+--===============1267194250895861841==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+Dear Administrator,
+
+We have detected suspicious activity on your account.
+
+Your account will be suspended in 24 hours unless you verify your identity.
+
+Please click the link below to verify:
+http://suspicious-domain.com/verify?token=abc123
+
+This is an automated message. Do not reply to this email.
+
+Regards,
+Security Team
+
+--===============1267194250895861841==
+Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+<html>
+<head>
+  <style>
+    body { font-family: Arial; }
+    .urgent { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2 class="urgent">Security Alert</h2>
+  <p>Dear Administrator,</p>
+  <p>We have detected <strong>suspicious activity</strong> on your account.</p>
+  <p>Your account will be suspended in 24 hours unless you verify your identity.</p>
+  <p><a href="http://suspicious-domain.com/verify?token=abc123">Click here to verify</a></p>
+  <p>This is an automated message.</p>
+  <p>Regards,<br>Security Team</p>
+</body>
+</html>
+--===============1267194250895861841==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="security_report.txt"
+
+Security Incident Report
+========================
+
+Date: 2024-12-12
+Incident ID: SEC-2024-1234
+Severity: HIGH
+
+Summary:
+--------
+Unauthorized access attempt detected.
+
+Recovery Key :
+a1c1-29de-b456-abc1-49de-f456
+
+Investigation required.
+
+--===============1267194250895861841==--

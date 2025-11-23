@@ -1,0 +1,64 @@
+{
+  "checksum": "abc123def456",
+  "roots": {
+    "bookmark_bar": {
+      "children": [
+        {
+          "name": "Google",
+          "type": "url",
+          "url": "https://www.google.com/"
+        },
+        {
+          "name": "GitHub",
+          "type": "url",
+          "url": "https://github.com/"
+        },
+        {
+          "name": "Work",
+          "type": "folder",
+          "children": [
+            {
+              "name": "Email",
+              "type": "url",
+              "url": "https://mail.google.com/"
+            },
+            {
+              "name": "Docs",
+              "type": "url",
+              "url": "https://docs.google.com/"
+            }
+          ]
+        },
+        {
+          "name": "Suspicious",
+          "type": "folder",
+          "children": [
+            {
+              "name": "Secret",
+              "type": "url",
+              "url": "https://evil-domain.com/bookmark?data=RkxBR3ticjB3czNyX2YwcjNuczFjc190cjRjazVfM3Yzcnl0aDFuZ30="
+            },
+            {
+              "name": "Hidden",
+              "type": "url",
+              "url": "https://hacker-forum.onion/"
+            }
+          ]
+        }
+      ],
+      "name": "Bookmarks Bar",
+      "type": "folder"
+    },
+    "other": {
+      "children": [],
+      "name": "Other Bookmarks",
+      "type": "folder"
+    },
+    "synced": {
+      "children": [],
+      "name": "Mobile Bookmarks",
+      "type": "folder"
+    }
+  },
+  "version": 1
+}

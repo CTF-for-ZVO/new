@@ -1,0 +1,38 @@
+Database Schema Information
+=============================
+
+Tables:
+-------
+
+1. users
+   - id (INTEGER PRIMARY KEY)
+   - username (TEXT)
+   - email (TEXT)
+   - created_at (TEXT)
+
+2. logs
+   - id (INTEGER PRIMARY KEY)
+   - user_id (INTEGER)
+   - action (TEXT)
+   - timestamp (TEXT)
+   - details (TEXT)
+
+3. secrets
+   - id (INTEGER PRIMARY KEY)
+   - key (TEXT)
+   - value (TEXT)
+   - created_at (TEXT)
+
+Notes:
+------
+- Some records have been deleted from the database
+- Deleted records may still exist in free pages
+- Use forensics tools to recover deleted data
+
+Hints:
+------
+- Try: strings database.db (look for base64 encoded data)
+- Try: sqlite3 database.db ".dump" | grep -i flag
+- Look for free pages in the database file
+- Check if there are -wal or -journal files
+- FLAG is base64 encoded - decode what you find!
